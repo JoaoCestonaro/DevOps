@@ -32,8 +32,13 @@ public class AlunoController {
     @GetMapping("/listar")
     public String listar(Model model) {
         model.addAttribute("alunos", alunoService.findAll());
-        return "aluno/listaAlunos";
+        return "aluno/listarAluno";
     }
     
+    @GetMapping("/criar")
+    public String criarForm(Model model) {
+        model.addAttribute("aluno", new Aluno());
+        return "aluno/formularioAluno";
+    }
     
 }
