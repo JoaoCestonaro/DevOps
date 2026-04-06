@@ -4,10 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema FatecADS</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+            width: 320px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: block;
+            text-decoration: none;
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 16px;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn-alunos {
+            background-color: #3498db;
+        }
+
+        .btn-alunos:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-cursos {
+            background-color: #2ecc71;
+        }
+
+        .btn-cursos:hover {
+            background-color: #27ae60;
+        }
+    </style>
 </head>
+
 <body>
-    <h1 style="text-align: center;">Bem vindo ao Sistema FatecADS</h1>
-    <h3 style="text-align: center;"><a href="/alunos/listar">Gerenciar alunos</a></h3>
-    <h3 style="text-align: center;"><a href="/alunos/criar">Cadastrar alunos</a></h3>
+
+    <div class="container">
+        <h1>Bem-vindo ao Sistema FatecADS</h1>
+
+        <a href="/alunos/listar" class="btn btn-alunos">
+            👨‍🎓 Gerenciar Alunos
+        </a>
+
+        <a href="/cursos/listar" class="btn btn-cursos">
+            📚 Gerenciar Cursos
+        </a>
+    </div>
+
 </body>
 </html>

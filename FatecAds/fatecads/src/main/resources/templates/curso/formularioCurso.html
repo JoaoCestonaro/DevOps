@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Alunos</title>
+    <title>Cadastro de Cursos</title>
 
     <style>
         body {
@@ -20,23 +20,24 @@
         }
 
         .container {
+            width: 100%;
             display: flex;
             justify-content: center;
             margin-top: 30px;
         }
 
         form {
-            background: #fff;
+            background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 380px;
+            width: 350px;
         }
 
         label {
             font-weight: bold;
             display: block;
-            margin-top: 12px;
+            margin-top: 15px;
             color: #555;
         }
 
@@ -52,19 +53,16 @@
         input[type="text"]:focus {
             border-color: #3498db;
             outline: none;
-            box-shadow: 0 0 5px rgba(52,152,219,0.4);
-        }
-
-        .actions {
-            margin-top: 20px;
+            box-shadow: 0 0 5px rgba(52,152,219,0.5);
         }
 
         input[type="submit"] {
             width: 100%;
+            margin-top: 20px;
             padding: 12px;
             border: none;
             border-radius: 6px;
-            background-color: #2ecc71;
+            background-color: #4CAF50;
             color: white;
             font-size: 16px;
             cursor: pointer;
@@ -72,7 +70,7 @@
         }
 
         input[type="submit"]:hover {
-            background-color: #27ae60;
+            background-color: #45a049;
         }
 
     </style>
@@ -80,34 +78,23 @@
 
 <body>
 
-    <h1>Cadastro de Alunos</h1>
+    <h1>Cadastro de Curso</h1>
 
     <div class="container">
-        <form th:action="@{/alunos/salvar}" method="post" th:object="${aluno}">
+        <form th:action="@{/cursos/salvar}" method="post" th:object="${curso}">
             
-            <input type="hidden" th:field="*{idAluno}">
+            <input type="hidden" th:field="*{idCurso}">
             
             <label>Nome:</label>
-            <input type="text" th:field="*{nomeAluno}" placeholder="Digite o nome completo">
+            <input type="text" th:field="*{nomeCurso}" placeholder="Digite o nome do curso">
 
-            <label>Email:</label>
-            <input type="text" th:field="*{emailAluno}" placeholder="exemplo@email.com">
+            <label>Período:</label>
+            <input type="text" th:field="*{periodoCurso}" placeholder="Ex: Noturno, Matutino">
 
-            <label>Endereço:</label>
-            <input type="text" th:field="*{enderecoAluno}" placeholder="Rua, número, bairro">
+            <label>Carga Horária:</label>
+            <input type="text" th:field="*{cargaHoraria}" placeholder="Ex: 80h">
 
-            <label>Telefone:</label>
-            <input type="text" th:field="*{telefoneAluno}" placeholder="(00) 00000-0000">
-
-            <label>CPF:</label>
-            <input type="text" th:field="*{cpfAluno}" placeholder="000.000.000-00">
-
-            <label>RA:</label>
-            <input type="text" th:field="*{raAluno}" placeholder="Número do RA">
-
-            <div class="actions">
-                <input type="submit" value="Salvar">
-            </div>
+            <input type="submit" value="Salvar">
             
         </form>
     </div>
