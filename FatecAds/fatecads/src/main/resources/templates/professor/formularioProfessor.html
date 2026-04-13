@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Professores</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 40px;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            width: 380px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 12px;
+            color: #555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52,152,219,0.4);
+        }
+
+        .actions {
+            margin-top: 20px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #2ecc71;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Cadastro de Professores</h1>
+
+    <div class="container">
+        <form th:action="@{/professores/salvar}" method="post" th:object="${professor}">
+            
+            <input type="hidden" th:field="*{idProfessor}">
+            
+            <label>Nome:</label>
+            <input type="text" th:field="*{nomeProfessor}" placeholder="Digite o nome completo">
+
+
+            <label>Telefone:</label>
+            <input type="text" th:field="*{telefoneProfessor}" placeholder="(00) 00000-0000">
+
+            <label>Graduação:</label>
+            <input type="text" th:field="*{graduacaoProfessor}" placeholder="exemplo@email.com">
+
+            <label>RM:</label>
+            <input type="text" th:field="*{rmProfessor}" placeholder="Número do RM">
+
+            <div class="actions">
+                <input type="submit" value="Salvar">
+            </div>
+            
+        </form>
+    </div>
+
+</body>
+</html>

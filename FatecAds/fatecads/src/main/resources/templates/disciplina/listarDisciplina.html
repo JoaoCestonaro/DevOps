@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Disciplinas</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 a {
+            text-decoration: none;
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        h3 a:hover {
+            background-color: #27ae60;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 90%;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a {
+            text-decoration: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        a[href*="editar"] {
+            background-color: #3498db;
+            color: white;
+        }
+
+        a[href*="editar"]:hover {
+            background-color: #2980b9;
+        }
+
+        a[href*="excluir"] {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        a[href*="excluir"]:hover {
+            background-color: #c0392b;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <h1>Lista de Disciplinas</h1>
+
+    <h3>
+        <a href="/disciplinas/criar">+ Criar nova disciplina</a>
+    </h3>
+
+    <table>
+        <tr>
+            <th>Nome</th>
+            <th>Sigla</th>
+            <th>Carga Horária</th>
+            <th colspan="2">Ações</th>
+        </tr>
+
+        <tr th:each="disciplina : ${disciplinas}">
+            <td th:text="${disciplina.nomeDisciplina}">*</td>
+            <td th:text="${disciplina.siglaDisciplina}">*</td>
+            <td th:text="${disciplina.cargaHoraria}">*</td>
+            <td>
+                <a th:href="@{/disciplinas/editar/{id}(id=${disciplina.idDisciplina})}">Editar</a>
+            </td>
+            <td>
+                <a th:href="@{/disciplinas/excluir/{id}(id=${disciplina.idDisciplina})}"
+                   onClick="return confirm('Deseja realmente excluir essa disciplina?')">
+                   Excluir
+                </a>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
