@@ -105,6 +105,15 @@
             <label>RA:</label>
             <input type="text" th:field="*{raAluno}" placeholder="Número do RA">
 
+            <label>Curso:</label>
+            <select th:field="*{curso}">
+                <option value="" disabled selected>Selecione um curso</option>
+                <option th:each="curso : ${cursos}"
+                        th:text="${curso.nomeCurso}"
+                        th:value="${curso.idCurso}">
+                </option>
+            </select>
+            <br/>
             <div class="actions">
                 <input type="submit" value="Salvar">
             </div>

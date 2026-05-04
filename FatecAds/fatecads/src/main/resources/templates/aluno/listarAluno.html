@@ -109,6 +109,7 @@
             <th>Endereço</th>
             <th>CPF</th>
             <th>RA</th>
+            <th>Curso</th>
             <th colspan="2">Ações</th>
         </tr>
 
@@ -119,6 +120,7 @@
             <td th:text="${aluno.enderecoAluno}">*</td>
             <td th:text="${aluno.cpfAluno}">*</td>
             <td th:text="${aluno.raAluno}">*</td>
+            <td th:text="${aluno.curso.nomeCurso}">*</td>
             <td>
                 <a th:href="@{/alunos/editar/{id}(id=${aluno.idAluno})}">Editar</a>
             </td>

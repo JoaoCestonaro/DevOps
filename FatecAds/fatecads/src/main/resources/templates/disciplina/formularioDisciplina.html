@@ -78,7 +78,7 @@
 
 <body>
 
-    <h1>Cadastro de Curso</h1>
+    <h1>Cadastro de Disciplinas</h1>
 
     <div class="container">
         <form th:action="@{/disciplinas/salvar}" method="post" th:object="${disciplina}">
@@ -93,6 +93,24 @@
 
             <label>Carga Horária:</label>
             <input type="text" th:field="*{cargaHoraria}" placeholder="Ex: 80h">
+
+            <label>Curso:</label>
+            <select th:field="*{curso}">
+                <option value="" disabled selected>Selecione um curso</option>
+                <option th:each="curso : ${cursos}"
+                        th:text="${curso.nomeCurso}"
+                        th:value="${curso.idCurso}">
+                </option>
+            </select>
+
+            <label>Professor:</label>
+            <select th:field="*{professor}">
+                <option value="" disabled selected>Selecione um professor</option>
+                <option th:each="professor : ${professores}"
+                        th:text="${professor.nomeProfessor}"
+                        th:value="${professor.idProfessor}">
+                </option>
+            </select>
 
             <input type="submit" value="Salvar">
             

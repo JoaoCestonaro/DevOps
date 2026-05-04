@@ -106,6 +106,8 @@
             <th>Nome</th>
             <th>Sigla</th>
             <th>Carga Horária</th>
+            <th>Curso</th>
+            <th>Professor</th>
             <th colspan="2">Ações</th>
         </tr>
 
@@ -113,6 +115,8 @@
             <td th:text="${disciplina.nomeDisciplina}">*</td>
             <td th:text="${disciplina.siglaDisciplina}">*</td>
             <td th:text="${disciplina.cargaHoraria}">*</td>
+            <td th:text="${disciplina.curso.nomeCurso}">*</td>
+            <td th:text="${disciplina.professor.nomeProfessor}">*</td>
             <td>
                 <a th:href="@{/disciplinas/editar/{id}(id=${disciplina.idDisciplina})}">Editar</a>
             </td>
