@@ -40,7 +40,8 @@
             color: #555;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
@@ -49,7 +50,8 @@
             transition: 0.3s;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus,
+        input[type="password"]:focus {
             border-color: #3498db;
             outline: none;
             box-shadow: 0 0 5px rgba(52,152,219,0.4);
@@ -93,11 +95,14 @@
             <label>Email:</label>
             <input type="text" th:field="*{emailUsuario}" placeholder="exemplo@email.com">
 
+            <label>WhatsApp:</label>
+            <input type="text" th:field="*{telefoneUsuario}" placeholder="(11) 99999-9999">
+
             <label>Login:</label>
             <input type="text" th:field="*{loginUsuario}">
 
             <label>Senha:</label>
-            <input type="password" th:field="*{senhaUsuario}">
+            <input type="password" th:field="*{senhaUsuario}" placeholder="Preencha apenas para alterar">
             <br/>
             
             <div class="actions">

@@ -1,10 +1,13 @@
 package br.com.fatecads.fatecads.entity;
 
-import jakarta.persistence.Column;
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,18 +18,21 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Curso {
+public class RecuperacaoSenha {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer idCurso;
+    private Integer idRecuperacaoSenha;
 
-    @Column(nullable = false, length = 40)
-    private String nomeCurso;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 
-    @Column(length = 10)
-    private String periodoCurso;
+    private String codigoHash;
 
-    @Column(nullable = false)
-    private String cargaHoraria;
+    private LocalDateTime expiraEm;
+
+    private LocalDateTime usadoEm;
+
+    private Integer tentativas = 0;
 }

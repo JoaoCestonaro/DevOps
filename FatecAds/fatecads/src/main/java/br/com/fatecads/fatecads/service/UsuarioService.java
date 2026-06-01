@@ -23,7 +23,17 @@ public class UsuarioService {
     //Método para salvar um professor
     public Usuario save(Usuario usuario){
 
-        usuario.setSenhaUsuario(passwordEncoder.encode(usuario.getSenhaUsuario()));
+        if (usuario.getIdUsuario() != null) {
+            Usuario usuarioExistente = findById(usuario.getIdUsuario());
+            if (usuarioExistente != null && (usuario.getSenhaUsuario() == null || usuario.getSenhaUsuario().isBlank())) {
+                usuario.setSenhaUsuario(usuarioExistente.getSenhaUsuario());
+                return usuarioRepository.save(usuario);
+            }
+        }
+
+        if (usuario.getSenhaUsuario() != null && !usuario.getSenhaUsuario().isBlank()) {
+            usuario.setSenhaUsuario(passwordEncoder.encode(usuario.getSenhaUsuario()));
+        }
         return usuarioRepository.save(usuario);
     }
 
@@ -40,5 +50,10 @@ public class UsuarioService {
     //Método para pesquisar professor por id
     public Usuario findById(Integer id){
         return usuarioRepository.findById(id).orElse(null);
+    }
+
+    public void atualizarSenha(Usuario usuario, String novaSenha) {
+        usuario.setSenhaUsuario(passwordEncoder.encode(novaSenha));
+        usuarioRepository.save(usuario);
     }
 }

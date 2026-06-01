@@ -28,6 +28,9 @@ public class Usuario {
     @Column(nullable = false, length = 100)
     private String emailUsuario;
 
+    @Column(length = 20)
+    private String telefoneUsuario;
+
      @Column(nullable = false, length = 1000)
     private String loginUsuario;
 

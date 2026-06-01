@@ -4,27 +4,131 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acesso ao Sistema</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .login-box {
+            background: #fff;
+            padding: 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0 0 24px;
+            color: #333;
+            font-size: 26px;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 14px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 5px rgba(52,152,219,0.4);
+        }
+
+        button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            background-color: #2ecc71;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #27ae60;
+        }
+
+        .link-recuperacao,
+        .voltar-home {
+            display: block;
+            margin-top: 16px;
+            text-align: center;
+            color: #3498db;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .link-recuperacao:hover,
+        .voltar-home:hover {
+            text-decoration: underline;
+        }
+
+        .mensagem {
+            text-align: center;
+            margin: 14px 0 0;
+            font-size: 14px;
+        }
+
+        .erro {
+            color: #c0392b;
+        }
+
+        .sucesso {
+            color: #27ae60;
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align: center;"> Acesso ao Sistema</h1>
-    <form method="post" th:action="@{/login}">
-        <label for="username">Usuário:</label>
-        <input type="text" id="username" name="username">
-        <br>
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password">
-        <br/>
-        <button type="submit">Entrar</button>
+    <main class="login-container">
+        <section class="login-box">
+            <h1>Acesso ao Sistema</h1>
 
-    </form>
-    
-    <p th:if="${param.error}">Login Inválido</p>
-    <p th:if="${param.logout}">Logout efetuado
-    <form action="/fatecads" method="get">
-        <button type="submit">Voltar para home</button>
-    </form>
+            <form method="post" th:action="@{/login}">
+                <label for="username">Usuario:</label>
+                <input type="text" id="username" name="username" autocomplete="username" required>
 
-    
-    </p>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+                <button type="submit">Entrar</button>
+            </form>
+
+            <a class="link-recuperacao" th:href="@{/recuperar-senha}">Esqueci minha senha</a>
+
+            <p class="mensagem erro" th:if="${param.error}">Login invalido</p>
+            <p class="mensagem sucesso" th:if="${param.senhaRedefinida}">Senha redefinida com sucesso</p>
+            <p class="mensagem sucesso" th:if="${param.logout}">Logout efetuado</p>
+
+            <a class="voltar-home" th:href="@{/fatecads}">Voltar para home</a>
+        </section>
+    </main>
 </body>
 </html>

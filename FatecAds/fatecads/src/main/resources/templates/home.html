@@ -8,103 +8,209 @@
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background: linear-gradient(135deg, #2c3e50, #4ca1af);
+            background: #f4f6f9;
+            color: #2c3e50;
             margin: 0;
-            padding: 0;
-            height: 100vh;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid #e1e6ef;
+            padding: 16px 32px;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: space-between;
+            gap: 16px;
         }
 
-        .container {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            width: 320px;
+        .brand {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 0;
         }
 
-        h1 {
-            color: #333;
-            margin-bottom: 30px;
+        .logout-form {
+            margin: 0;
         }
 
-        .btn {
-            display: block;
-            text-decoration: none;
-            margin: 10px 0;
-            padding: 12px;
+        .logout-button {
+            border: 1px solid #d7dde8;
+            background: #fff;
+            color: #2c3e50;
+            padding: 9px 14px;
             border-radius: 6px;
-            font-size: 16px;
-            color: white;
+            cursor: pointer;
+            font-size: 14px;
             transition: 0.3s;
         }
 
-        .btn-alunos {
-            background-color: #3498db;
+        .logout-button:hover {
+            border-color: #c0392b;
+            color: #c0392b;
         }
 
-        .btn-alunos:hover {
-            background-color: #2980b9;
+        .page {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 36px 24px;
         }
 
-        .btn-cursos {
-            background-color: #2ecc71;
+        .header {
+            margin-bottom: 28px;
         }
 
-        .btn-cursos:hover {
-            background-color: #27ae60;
+        .header h1 {
+            font-size: 32px;
+            margin: 0 0 8px;
+            color: #263849;
         }
 
-        .btn-disciplinas {
-            background-color: #db9334;
+        .header p {
+            margin: 0;
+            color: #6b7788;
+            font-size: 16px;
         }
 
-        .btn-disciplinas:hover {
-            background-color: #b97f29;
+        .modules {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 18px;
         }
 
-        .btn-professores {
-            background-color: #cc2e2e;
+        .module-card {
+            background: #fff;
+            border: 1px solid #e1e6ef;
+            border-radius: 8px;
+            padding: 22px;
+            text-decoration: none;
+            color: #2c3e50;
+            min-height: 128px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        .btn-professores:hover {
-            background-color: #ae2727;
+        .module-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(0,0,0,0.09);
+            border-color: #b8c5d8;
         }
 
-        .btn-usuarios {
-            background-color: #5f91c0;
+        .module-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
         }
 
-        .btn-usuarios:hover {
-            background-color: #4b75c4;
+        .module-description {
+            color: #6b7788;
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 10px 0 0;
+        }
+
+        .module-action {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 18px;
+        }
+
+        .alunos {
+            border-top: 4px solid #3498db;
+        }
+
+        .cursos {
+            border-top: 4px solid #2ecc71;
+        }
+
+        .disciplinas {
+            border-top: 4px solid #f39c12;
+        }
+
+        .professores {
+            border-top: 4px solid #e74c3c;
+        }
+
+        .usuarios {
+            border-top: 4px solid #8e44ad;
+        }
+
+        @media (max-width: 640px) {
+            .topbar {
+                padding: 14px 20px;
+            }
+
+            .page {
+                padding: 28px 18px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
         }
     </style>
 </head>
 
 <body>
+    <header class="topbar">
+        <p class="brand">FatecADS</p>
 
-    <div class="container">
-        <h1>Bem-vindo ao Sistema FatecADS</h1>
+        <form class="logout-form" th:action="@{/logout}" method="post">
+            <button class="logout-button" type="submit">Sair</button>
+        </form>
+    </header>
 
-        <a href="/alunos/listar" class="btn btn-alunos">
-             Gerenciar Alunos
-        </a>
+    <main class="page">
+        <section class="header">
+            <h1>Painel do Sistema</h1>
+            <p>Acesse rapidamente os cadastros e consultas do sistema academico.</p>
+        </section>
 
-        <a href="/cursos/listar" class="btn btn-cursos">
-             Gerenciar Cursos
-        </a>
+        <section class="modules">
+            <a href="/alunos/listar" class="module-card alunos">
+                <div>
+                    <p class="module-title">Alunos</p>
+                    <p class="module-description">Gerencie dados dos alunos cadastrados.</p>
+                </div>
+                <span class="module-action">Abrir modulo</span>
+            </a>
 
-        <a href="/disciplinas/listar" class="btn btn-disciplinas">
-             Gerenciar Disciplinas
-        </a>
+            <a href="/cursos/listar" class="module-card cursos">
+                <div>
+                    <p class="module-title">Cursos</p>
+                    <p class="module-description">Cadastre cursos, periodos e carga horaria.</p>
+                </div>
+                <span class="module-action">Abrir modulo</span>
+            </a>
 
-        <a href="/professores/listar" class="btn btn-professores">
-             Gerenciar Professores
-        </a>
-    </div>
+            <a href="/disciplinas/listar" class="module-card disciplinas">
+                <div>
+                    <p class="module-title">Disciplinas</p>
+                    <p class="module-description">Organize disciplinas vinculadas aos cursos.</p>
+                </div>
+                <span class="module-action">Abrir modulo</span>
+            </a>
 
+            <a href="/professores/listar" class="module-card professores">
+                <div>
+                    <p class="module-title">Professores</p>
+                    <p class="module-description">Consulte e atualize o cadastro docente.</p>
+                </div>
+                <span class="module-action">Abrir modulo</span>
+            </a>
+
+            <a href="/usuarios/listar" class="module-card usuarios">
+                <div>
+                    <p class="module-title">Usuarios</p>
+                    <p class="module-description">Controle acessos e telefones de recuperacao.</p>
+                </div>
+                <span class="module-action">Abrir modulo</span>
+            </a>
+        </section>
+    </main>
 </body>
 </html>

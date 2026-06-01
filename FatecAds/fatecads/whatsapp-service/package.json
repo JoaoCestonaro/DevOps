@@ -1,0 +1,20 @@
+{
+  "name": "fatecads-whatsapp-service",
+  "version": "1.0.0",
+  "description": "Servico interno para envio de mensagens WhatsApp usando Baileys.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "baileys": "7.0.0-rc13",
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0",
+    "pino": "^9.7.0",
+    "qrcode-terminal": "^0.12.0"
+  }
+}

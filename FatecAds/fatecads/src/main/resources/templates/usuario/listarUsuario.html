@@ -105,15 +105,16 @@
         <tr>
             <th>Nome</th>
             <th>Email</th>
+            <th>WhatsApp</th>
             <th>Login</th>
-            <th>Senha</th>
             <th colspan="2">Ações</th>
         </tr>
 
         <tr th:each="usuario : ${usuarios}">
             <td th:text="${usuario.nomeUsuario}">*</td>
+            <td th:text="${usuario.emailUsuario}">*</td>
+            <td th:text="${usuario.telefoneUsuario}">*</td>
             <td th:text="${usuario.loginUsuario}">*</td>
-            <td th:text="${usuario.senhaUsuario}">*</td>
             <td>
                 <a th:href="@{/usuarios/editar/{id}(id=${usuario.idUsuario})}">Editar</a>
             </td>

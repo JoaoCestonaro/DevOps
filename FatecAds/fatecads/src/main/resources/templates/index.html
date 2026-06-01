@@ -3,17 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FatecAds - Sistema Acadêmico</title>
+    <title>FatecADS - Sistema Academico</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            color: #2c3e50;
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .topbar {
+            background: #fff;
+            border-bottom: 1px solid #e1e6ef;
+            padding: 18px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            margin: 0;
+            font-size: 20px;
+            font-weight: bold;
+            color: #263849;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #2c3e50;
+            font-size: 14px;
+            border: 1px solid #d7dde8;
+            padding: 9px 14px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .nav-link.primary {
+            background: #2ecc71;
+            border-color: #2ecc71;
+            color: #fff;
+        }
+
+        .nav-link.primary:hover {
+            background: #27ae60;
+            border-color: #27ae60;
+            color: #fff;
+        }
+
+        .page {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 56px 24px 36px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .hero-content {
+            background: #fff;
+            border: 1px solid #e1e6ef;
+            border-radius: 8px;
+            padding: 36px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .eyebrow {
+            color: #3498db;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 0 0 12px;
+        }
+
+        h1 {
+            color: #263849;
+            font-size: 42px;
+            line-height: 1.1;
+            margin: 0 0 16px;
+        }
+
+        .subtitle {
+            color: #6b7788;
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 640px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 28px;
+        }
+
+        .button {
+            text-decoration: none;
+            border-radius: 6px;
+            padding: 12px 18px;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .button.primary {
+            background: #2ecc71;
+            color: #fff;
+        }
+
+        .button.primary:hover {
+            background: #27ae60;
+        }
+
+        .button.secondary {
+            background: #fff;
+            color: #2c3e50;
+            border: 1px solid #d7dde8;
+        }
+
+        .button.secondary:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .summary-card {
+            background: #263849;
+            color: #fff;
+            border-radius: 8px;
+            padding: 28px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .summary-card h2 {
+            font-size: 22px;
+            margin: 0 0 18px;
+        }
+
+        .summary-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .summary-list li {
+            border-top: 1px solid rgba(255,255,255,0.18);
+            padding: 14px 0;
+            color: #dbe4ef;
+            font-size: 15px;
+        }
+
+        .summary-list li:first-child {
+            border-top: none;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 24px;
+        }
+
+        .feature {
+            background: #fff;
+            border: 1px solid #e1e6ef;
+            border-radius: 8px;
+            padding: 22px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .feature h3 {
+            margin: 0 0 10px;
+            color: #263849;
+            font-size: 18px;
+        }
+
+        .feature p {
+            margin: 0;
+            color: #6b7788;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        @media (max-width: 760px) {
+            .topbar {
+                padding: 16px 20px;
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-actions {
+                width: 100%;
+            }
+
+            .nav-link {
+                flex: 1;
+                text-align: center;
+            }
+
+            .page {
+                padding: 32px 18px;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                padding: 28px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .button {
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1 style="text-align: center;">FatecAds</h1>
-    <h2 style="text-align: center;">Sistema Acadêmico</h2>
+    <header class="topbar">
+        <p class="brand">FatecADS</p>
 
-    <form action="/login" method="get">
-        <button type="submit">Acesso ao Sistema</button>
-    </form>
-    <form action="/usuarios/criar" method="get">
-        <button type="submit">Cadastre-se</button>
-    </form>
+        <nav class="nav-actions">
+            <a class="nav-link" th:href="@{/usuarios/criar}">Cadastre-se</a>
+            <a class="nav-link primary" th:href="@{/login}">Entrar</a>
+        </nav>
+    </header>
+
+    <main class="page">
+        <section class="hero">
+            <div class="hero-content">
+                <p class="eyebrow">Sistema Academico</p>
+                <h1>FatecADS</h1>
+                <p class="subtitle">
+                    Plataforma para organizar alunos, cursos, disciplinas, professores e usuarios em um unico ambiente administrativo.
+                </p>
+
+                <div class="hero-actions">
+                    <a class="button primary" th:href="@{/login}">Acessar sistema</a>
+                    <a class="button secondary" th:href="@{/usuarios/criar}">Criar cadastro</a>
+                </div>
+            </div>
+
+            <aside class="summary-card">
+                <h2>Recursos</h2>
+                <ul class="summary-list">
+                    <li>Cadastros academicos centralizados</li>
+                    <li>Acesso protegido por login e senha</li>
+                    <li>Recuperacao de senha por WhatsApp</li>
+                    <li>Painel de acesso rapido aos modulos</li>
+                </ul>
+            </aside>
+        </section>
+
+        <section class="features">
+            <div class="feature">
+                <h3>Gestao academica</h3>
+                <p>Controle informacoes essenciais de alunos, cursos, disciplinas e professores.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Acesso organizado</h3>
+                <p>Usuarios acessam o sistema por uma area autenticada com navegacao direta.</p>
+            </div>
+
+            <div class="feature">
+                <h3>Suporte ao usuario</h3>
+                <p>Recupere o acesso com codigo enviado pelo WhatsApp cadastrado.</p>
+            </div>
+        </section>
+    </main>
 </body>
 </html>
