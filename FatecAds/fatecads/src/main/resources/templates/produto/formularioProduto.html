@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,6 +24,7 @@
             display: flex;
             justify-content: center;
             margin-top: 30px;
+            margin-bottom: 40px;
         }
 
         form {
@@ -40,20 +42,47 @@
             color: #555;
         }
 
-        input[type="text"] {
+        input[type="text"],
+        input[type="file"] {
             width: 100%;
             padding: 10px;
             margin-top: 5px;
             border: 1px solid #ccc;
             border-radius: 6px;
             box-sizing: border-box;
-            transition: 0.3s;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus,
+        input[type="file"]:focus {
             border-color: #3498db;
             outline: none;
             box-shadow: 0 0 5px rgba(52,152,219,0.4);
+        }
+
+        .imagem-atual {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .imagem-atual img {
+            width: 200px;
+            height: 200px;
+            object-fit: contain;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 5px;
+            background-color: #fafafa;
+        }
+
+        .sem-imagem {
+            margin-top: 10px;
+            margin-bottom: 15px;
+            padding: 20px;
+            text-align: center;
+            color: #888;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
         }
 
         .actions {
@@ -84,29 +113,68 @@
 
     <div class="container">
 
-        <form th:action="@{/produtos/salvar}" method="post" th:object="${produto}">
+        <form th:action="@{/produtos/salvar}"
+              method="post"
+              th:object="${produto}"
+              enctype="multipart/form-data">
 
+            <!-- ID do produto -->
             <input type="hidden" th:field="*{idProduto}">
 
+            <!-- Descrição -->
             <label>Descrição do Produto:</label>
+
             <input type="text"
                    th:field="*{descricaoProduto}"
-                   placeholder="Digite a descrição do produto">
+                   placeholder="Digite a descrição do produto"
+                   required>
 
+            <!-- Valor -->
             <label>Valor do Produto:</label>
+
             <input type="text"
                    th:field="*{valorProduto}"
-                   placeholder="Digite o valor do produto">
+                   placeholder="Digite o valor do produto"
+                   required>
 
+            <!-- Unidade -->
             <label>Unidade:</label>
+
             <input type="text"
                    th:field="*{unidadeProduto}"
-                   placeholder="Exemplo: KG, UN, LT">
+                   placeholder="Exemplo: KG, UN, LT"
+                   required>
 
+            <!-- Marca -->
             <label>Marca:</label>
+
             <input type="text"
                    th:field="*{marcaProduto}"
-                   placeholder="Digite a marca do produto">
+                   placeholder="Digite a marca do produto"
+                   required>
+
+            <!-- Imagem -->
+            <label>Imagem do Produto:</label>
+
+            <!-- Mostra a imagem já cadastrada -->
+            <div class="imagem-atual"
+                 th:if="${produto.idProduto != null && produto.imagemProduto != null}">
+
+                <img th:src="@{/produtos/imagem/{id}(id=${produto.idProduto})}"
+                     alt="Imagem atual do produto">
+            </div>
+
+            <!-- Mostra quando não existe imagem -->
+            <div class="sem-imagem"
+                 th:if="${produto.idProduto == null || produto.imagemProduto == null}">
+
+                Nenhuma imagem cadastrada
+            </div>
+
+            <!-- Selecionar nova imagem -->
+            <input type="file"
+                   name="imagem"
+                   accept="image/*">
 
             <div class="actions">
                 <input type="submit" value="Salvar Produto">
@@ -118,4 +186,3 @@
 
 </body>
 </html>
-```

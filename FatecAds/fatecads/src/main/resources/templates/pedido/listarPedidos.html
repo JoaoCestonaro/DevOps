@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Pedidos</title>
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 30px;
+            color: #333;
+        }
+
+        h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h3 a {
+            text-decoration: none;
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        h3 a:hover {
+            background-color: #27ae60;
+        }
+
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 95%;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .produto-info {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .produto-info img {
+            width: 70px;
+            height: 70px;
+            object-fit: contain;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            background-color: #fafafa;
+        }
+
+        .sem-imagem {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px dashed #ccc;
+            border-radius: 6px;
+            color: #888;
+            font-size: 11px;
+        }
+
+        .total {
+            font-weight: bold;
+            color: #27ae60;
+        }
+
+        .btn-editar {
+            text-decoration: none;
+            background-color: #3498db;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .btn-editar:hover {
+            background-color: #2980b9;
+        }
+
+        .btn-excluir {
+            text-decoration: none;
+            background-color: #e74c3c;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .btn-excluir:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-novo {
+            text-decoration: none;
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        .btn-novo:hover {
+            background-color: #27ae60;
+        }
+
+        .pedido {
+            border-bottom: 3px solid #2c3e50;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Lista de Pedidos</h1>
+
+    <h3>
+        <a class="btn-novo" th:href="@{/pedidos/criar}">
+            + Criar novo Pedido
+        </a>
+    </h3>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID Pedido</th>
+                <th>Aluno</th>
+                <th>Produto</th>
+                <th>Imagem</th>
+                <th>Quantidade</th>
+                <th>Preço Unit.</th>
+                <th>Subtotal</th>
+                <th>Total Pedido</th>
+                <th colspan="2">Ações</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <th:block th:each="pedido : ${pedidos}">
+
+                <tr class="pedido"
+                    th:each="item : ${pedido.itens}">
+
+                    <!-- ID do pedido -->
+                    <td th:text="${pedido.idPedido}">
+                        1
+                    </td>
+
+                    <!-- Aluno -->
+                    <td th:text="${pedido.cliente.nomeAluno}">
+                        Nome do aluno
+                    </td>
+
+                    <!-- Produto -->
+                    <td th:text="${item.produto.descricaoProduto}">
+                        Produto
+                    </td>
+
+                    <!-- Imagem -->
+                    <td>
+
+                        <img th:if="${item.produto.imagemProduto != null}"
+                             th:src="@{/produtos/imagem/{id}(id=${item.produto.idProduto})}"
+                             alt="Imagem do produto"
+                             width="80"
+                             height="80"
+                             style="object-fit: contain;
+                                    border-radius: 6px;
+                                    border: 1px solid #ddd;">
+
+                        <span th:if="${item.produto.imagemProduto == null}">
+                            Sem imagem
+                        </span>
+
+                    </td>
+
+                    <!-- Quantidade -->
+                    <td th:text="${item.quantidade}">
+                        1
+                    </td>
+
+                    <!-- Preço unitário -->
+                    <td th:text="${#numbers.formatDecimal(item.preco, 1, 2)}">
+                        0,00
+                    </td>
+
+                    <!-- Subtotal -->
+                    <td th:text="${#numbers.formatDecimal(item.subtotal, 1, 2)}">
+                        0,00
+                    </td>
+
+                    <!-- Total do pedido -->
+                    <td class="total"
+                        th:text="${#numbers.formatDecimal(pedido.total, 1, 2)}">
+                        0,00
+                    </td>
+
+                    <!-- Editar -->
+                    <td>
+                        <a class="btn-editar"
+                           th:href="@{/pedidos/editar/{id}(id=${pedido.idPedido})}">
+                            Editar
+                        </a>
+                    </td>
+
+                    <!-- Excluir -->
+                    <td>
+                        <a class="btn-excluir"
+                           th:href="@{/pedidos/excluir/{id}(id=${pedido.idPedido})}"
+                           onclick="return confirm('Deseja realmente excluir este pedido?')">
+                            Excluir
+                        </a>
+                    </td>
+
+                </tr>
+
+            </th:block>
+
+        </tbody>
+
+    </table>
+
+</body>
+
+</html>

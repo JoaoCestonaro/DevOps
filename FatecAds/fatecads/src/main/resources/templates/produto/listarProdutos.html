@@ -121,6 +121,18 @@
             <td th:text="${produto.marcaProduto}"></td>
 
             <td>
+                <img th:if="${produto.imagemProduto != null}"
+                th:src="@{/produtos/imagem/{id}(id=${produto.idProduto})}"
+                alt="Imagem do produto"
+                width="100"
+                height="100">
+                
+                <span th:if="${produto.imagemProduto == null}">
+                    Sem imagem
+                </span>
+            </td>
+
+            <td>
                 <a th:href="@{/produtos/editar/{id}(id=${produto.idProduto})}">
                     Editar
                 </a>
