@@ -35,7 +35,7 @@ public class ProdutoController {
     public String listar(Model model) {
         List<Produto> produtos = produtoService.findAll();
         model.addAttribute("produtos", produtos);
-        return "produto/listarProdutos";
+        return "produto/listarProduto";
     }
 
     // Método para abrir o formulário de criação de produtos

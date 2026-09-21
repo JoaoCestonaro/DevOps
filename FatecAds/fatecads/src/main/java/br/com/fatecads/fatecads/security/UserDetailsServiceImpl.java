@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import br.com.fatecads.fatecads.entity.Usuario;
 import br.com.fatecads.fatecads.repository.UsuarioRepository;
 
-
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -17,10 +16,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        Usuario usuario = usuarioRepository.findByLoginUsuario(login)
-            .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado: " + login));
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+
+        Usuario usuario = usuarioRepository
+                .findByLoginUsuario(username)
+                .orElseThrow(() ->
+                    new UsernameNotFoundException(
+                        "Usuário não encontrado: " + username
+                    )
+                );
+
         return new UserDetailsImpl(usuario);
     }
-
 }

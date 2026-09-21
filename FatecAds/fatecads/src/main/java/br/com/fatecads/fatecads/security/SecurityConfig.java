@@ -12,41 +12,105 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-        @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-                http
-                                .csrf(csrf -> csrf.disable())
-                                .authorizeHttpRequests(auth -> auth
-                                                .requestMatchers(
-                                                                "/login",
-                                                                "/recuperar-senha",
-                                                                "/recuperar-senha/**",
-                                                                "/fatecads",
-                                                                "/css/**",
-                                                                "/images/**",
-                                                                "/usuarios/**")
-                                                .permitAll()
-                                                .anyRequest().authenticated())
-                                .formLogin(form -> form
-                                                .loginPage("/login")
-                                                .defaultSuccessUrl("/home", true)
-                                                .permitAll())
-                                .logout(logout -> logout
-                                                .logoutSuccessUrl("/login?logout")
-                                                .permitAll());
+    @Bean
+    public SecurityFilterChain securityFilterChain(
+            HttpSecurity http,
+            CustomAuthenticationSuccessHandler successHandler) throws Exception {
 
-                return http.build();
-        }
+        http
+            .csrf(csrf -> csrf.disable())
 
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-                return new BCryptPasswordEncoder();
-        }
+            .authorizeHttpRequests(auth -> auth
 
-        @Bean
-        public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
-                        throws Exception {
-                return config.getAuthenticationManager();
-        }
+                // =========================
+                // ROTAS PÚBLICAS
+                // =========================
+                .requestMatchers(
+                    "/login",
+                    "/recuperar-senha",
+                    "/recuperar-senha/**",
+                    "/fatecads",
+                    "/css/**",
+                    "/images/**",
+                    "/usuarios/criar",
+                    "/usuarios/salvar"
+                ).permitAll()
 
+                // =========================
+                // INDEX
+                // ADMIN E USER PODEM ACESSAR
+                // =========================
+                .requestMatchers("/index")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_USER")
+
+                // =========================
+                // HOME DO ADMIN
+                // =========================
+                .requestMatchers("/home")
+                .hasAuthority("ROLE_ADMIN")
+
+                // =========================
+                // HOME DO CLIENTE
+                // =========================
+                .requestMatchers("/homecliente")
+                .hasAuthority("ROLE_USER")
+
+                // =========================
+                // CRUDS - SOMENTE ADMIN
+                // =========================
+                .requestMatchers(
+                    "/usuarios/**",
+                    "/professores/**",
+                    "/alunos/**",
+                    "/produtos/**",
+                    "/cursos/**",
+                    "/disciplinas/**",
+                    "/pedidos/**"
+                ).hasAuthority("ROLE_ADMIN")
+
+                // =========================
+                // QUALQUER OUTRA ROTA
+                // SOMENTE ADMIN
+                // =========================
+                .anyRequest()
+                .hasAuthority("ROLE_ADMIN")
+            )
+
+            // =========================
+            // LOGIN
+            // =========================
+            .formLogin(form -> form
+                .loginPage("/login")
+                .successHandler(successHandler)
+                .permitAll()
+            )
+
+            // =========================
+            // LOGOUT
+            // =========================
+            .logout(logout -> logout
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
+            );
+
+        return http.build();
+    }
+
+    // =========================
+    // CRIPTOGRAFIA DA SENHA
+    // =========================
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    // =========================
+    // AUTHENTICATION MANAGER
+    // =========================
+    @Bean
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration config) throws Exception {
+
+        return config.getAuthenticationManager();
+    }
 }
